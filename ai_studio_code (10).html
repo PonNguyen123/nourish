@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PetNourish – GPS Routing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet (Map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Leaflet Routing Machine & Geocoder (For address search) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Leaves -->
+  <div class="leaf-layer" aria-hidden="true">
+    <div class="leaf">🍃</div><div class="leaf">🍂</div><div class="leaf">🍁</div>
+    <div class="leaf">🍃</div><div class="leaf">🍂</div><div class="leaf">🍁</div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-circle"><span class="logo-paw">🐾</span></div>
+        <div class="brand-text">
+          <h1>PetNourish</h1>
+          <p>GPS Routing System</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button class="theme-toggle" id="theme-toggle" type="button">
+          <span class="theme-toggle__icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="top-tabs">
+      <button class="tab-btn tab-btn--active" id="tab-map" type="button">🗺️ Map & GPS</button>
+      <button class="tab-btn" id="tab-food" type="button">🍽️ Food & Price</button>
+      <button class="tab-btn" id="tab-care" type="button">🧑‍🦯 Care Help</button>
+    </nav>
+
+    <main class="app-main--single">
+
+      <!-- MAP VIEW -->
+      <section class="view view--active" id="view-map">
+        <div class="map-wrap">
+          
+          <!-- NEW: Back Button (Visible only in Fullscreen) -->
+          <button class="map-back-btn" id="btn-map-back" type="button">
+            ⬅ Back to Menu
+          </button>
+
+          <!-- Map Container -->
+          <div id="map" class="map-canvas"></div>
+
+          <!-- Floating Map Controls -->
+          <div class="map-fab-stack">
+            <button class="map-fab" id="btn-my-location" type="button" title="My location">🎯</button>
+            <button class="map-fab" id="btn-fullscreen" type="button" title="Fullscreen">⤢</button>
+          </div>
+          
+          <!-- Bottom Sheet (The Layer) -->
+          <div class="bottom-sheet" id="bottom-sheet">
+            <div class="sheet-grab"></div>
+            
+            <div class="sheet-head" id="sheet-header">
+              <h3 class="sheet-title">Where you wanna go?</h3>
+              <div class="sheet-actions">
+                <button class="btn btn-secondary" id="btn-clear-route" type="button">Clear</button>
+              </div>
+            </div>
+
+            <div class="sheet-body">
+               <div class="search-row">
+                 <input id="dest-input" type="text" placeholder="e.g. Ben Thanh Market" />
+                 <button class="btn btn-primary" id="btn-start-route" type="button">Start Route</button>
+               </div>
+               <div class="legend-row">
+                 <div class="legend-item"><span class="dot" style="background:blue"></span> Destination (Blue)</div>
+                 <div class="legend-item"><span class="dot" style="background:gold"></span> Shortcut (Yellow)</div>
+                 <div class="legend-item"><span class="dot" style="background:red"></span> Nearest Shop (Red)</div>
+               </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FOOD & PRICE VIEW -->
+      <section class="view" id="view-food">
+        <section class="card">
+          <h2>Pet Food & Prices</h2>
+          <p class="subtitle">10 items @ 10 HCMC Stores</p>
+
+          <div class="food-controls">
+             <input id="food-search" type="text" placeholder="Search items..." />
+             <select id="food-category">
+               <option value="any">All Categories</option>
+               <option value="Dry Food">Dry Food</option>
+               <option value="Wet Food">Wet Food</option>
+               <option value="Toys">Toys</option>
+               <option value="Bedding">Bedding</option>
+               <option value="Accessories">Accessories</option>
+             </select>
+          </div>
+
+          <div class="food-grid" id="food-grid">
+            <!-- Items injected via JS -->
+          </div>
+        </section>
+      </section>
+
+      <!-- CARE VIEW -->
+      <section class="view" id="view-care">
+        <section class="card">
+          <h2>Care Help</h2>
+          <p class="subtitle">Find pet sitters (Demo)</p>
+          <div class="sitters-list">
+             <div class="stop-empty">Feature coming soon.</div>
+          </div>
+        </section>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
